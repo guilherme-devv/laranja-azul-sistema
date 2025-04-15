@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import {
   User, 
   Settings,
   Battery,
-  Tool,
+  Wrench,
   LogOut,
   Menu
 } from "lucide-react";
@@ -40,7 +39,7 @@ export default function Sidebar({ isMobile = false }: SidebarProps) {
     },
     {
       name: "Manutenções",
-      icon: <Tool className="h-5 w-5" />,
+      icon: <Wrench className="h-5 w-5" />,
       path: "/manutencoes",
     },
     {
@@ -115,7 +114,6 @@ export default function Sidebar({ isMobile = false }: SidebarProps) {
     </div>
   );
 
-  // Para dispositivos móveis, usamos o componente Sheet
   if (isMobile) {
     return (
       <Sheet>
@@ -131,6 +129,5 @@ export default function Sidebar({ isMobile = false }: SidebarProps) {
     );
   }
 
-  // Para desktop
   return <SidebarContent />;
 }
