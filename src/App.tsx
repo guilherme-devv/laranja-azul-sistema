@@ -11,6 +11,7 @@ import ClientsPage from "./pages/ClientsPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 import UserRegister from "./pages/UserRegister";
+import SuccessModalDemo from "./components/SuccessModalDemo";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<><Login /><SuccessModalDemo /></>} />
           <Route path="/recuperar-senha" element={<PasswordRecovery />} />
           <Route path="/cadastro-usuario" element={<UserRegister />} />
           <Route path="/dashboard" element={<Dashboard />} />
