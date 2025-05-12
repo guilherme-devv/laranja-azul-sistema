@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import ClientsPage from "./pages/ClientsPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
+import UserRegister from "./pages/UserRegister";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/recuperar-senha" element={<PasswordRecovery />} />
+          <Route path="/cadastro-usuario" element={<UserRegister />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/clientes" element={<ClientsPage />} />
           <Route path="/administradores" element={<PlaceholderPage />} />
