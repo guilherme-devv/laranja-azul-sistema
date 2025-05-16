@@ -12,6 +12,7 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 import UserRegister from "./pages/UserRegister";
 import SuccessModalDemo from "./components/SuccessModalDemo";
+import BESSFormPage from "./pages/BESSFormPage";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/clientes" element={<ClientsPage />} />
           <Route path="/administradores" element={<PlaceholderPage />} />
-          <Route path="/bess" element={<PlaceholderPage />} />
+          <Route path="/bess" element={<BESSFormPage />} />
           <Route path="/manutencoes" element={<PlaceholderPage />} />
           <Route path="/perfil" element={<PlaceholderPage />} />
           <Route path="*" element={<NotFound />} />
