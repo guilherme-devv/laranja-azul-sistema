@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -534,7 +533,10 @@ export default function BESSDashboard() {
                           active={active}
                           payload={payload}
                           label={`Data: ${payload[0].payload.date}`}
-                          formatter={(value) => `R$ ${value.toFixed(2)}`}
+                          formatter={(value) => {
+                            // Fix the type error by ensuring value is a number before using toFixed
+                            return `R$ ${typeof value === 'number' ? value.toFixed(2) : value}`;
+                          }}
                         />
                       );
                     }
