@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Sidebar from "@/components/Sidebar";
+import BESSDashboard from "@/components/BESSDashboard";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Dashboard() {
@@ -42,29 +43,7 @@ export default function Dashboard() {
         
         <main className="flex-1 overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold text-brand-orange mb-6">Bem-vindo ao Sistema BESS Solar</h2>
-              <p className="text-gray-600">
-                Selecione uma opção no menu lateral para começar.
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="bg-gradient-to-r from-brand-orange to-brand-orange-light text-white rounded-lg p-6 shadow-md">
-                  <h3 className="text-lg font-semibold mb-2">Clientes</h3>
-                  <p className="text-sm opacity-80">Gerencie os clientes da empresa</p>
-                </div>
-                
-                <div className="bg-gradient-to-r from-brand-yellow-gold to-brand-yellow-light text-gray-800 rounded-lg p-6 shadow-md">
-                  <h3 className="text-lg font-semibold mb-2">BESS</h3>
-                  <p className="text-sm opacity-80">Sistema de armazenamento de energia</p>
-                </div>
-                
-                <div className="bg-gradient-to-r from-brand-blue-medium to-brand-blue-light text-white rounded-lg p-6 shadow-md">
-                  <h3 className="text-lg font-semibold mb-2">Manutenções</h3>
-                  <p className="text-sm opacity-80">Agende e gerencie manutenções</p>
-                </div>
-              </div>
-            </div>
+            <BESSDashboard />
           </div>
         </main>
       </div>
