@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -238,7 +239,7 @@ export default function BESSDashboard() {
                   <SelectValue placeholder="Selecionar Cliente" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todos os Clientes</SelectItem>
+                  <SelectItem value="all">Todos os Clientes</SelectItem>
                   {mockClients.map(client => (
                     <SelectItem key={client.id} value={client.id}>{client.name}</SelectItem>
                   ))}
@@ -256,7 +257,7 @@ export default function BESSDashboard() {
                   <SelectValue placeholder="Selecionar Sistema" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todos os Sistemas</SelectItem>
+                  <SelectItem value="all">Todos os Sistemas</SelectItem>
                   {mockBESSSystems.map(system => (
                     <SelectItem key={system.id} value={system.id}>
                       {system.manufacturer} - {system.model}
