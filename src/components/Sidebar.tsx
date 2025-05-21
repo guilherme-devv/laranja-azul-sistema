@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,17 +22,25 @@ export default function Sidebar({ isMobile = false }: SidebarProps) {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
   
+  // Check if user is a technical manager to determine what menu items to show
+  const userData = localStorage.getItem("user");
+  const user = userData ? JSON.parse(userData) : null;
+  const isTechnicalManager = user?.role === "technical_manager";
+  
   const menuItems = [
-    {
-      name: "Clientes",
-      icon: <Users className="h-5 w-5" />,
-      path: "/clientes",
-    },
-    {
-      name: "Administradores",
-      icon: <User className="h-5 w-5" />,
-      path: "/administradores",
-    },
+    // Show clients and admins only for regular users
+    ...(isTechnicalManager ? [] : [
+      {
+        name: "Clientes",
+        icon: <Users className="h-5 w-5" />,
+        path: "/clientes",
+      },
+      {
+        name: "Administradores",
+        icon: <User className="h-5 w-5" />,
+        path: "/administradores",
+      },
+    ]),
     {
       name: "BESS",
       icon: <Battery className="h-5 w-5" />,
