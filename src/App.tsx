@@ -14,6 +14,7 @@ import UserRegister from "./pages/UserRegister";
 import SuccessModalDemo from "./components/SuccessModalDemo";
 import BESSFormPage from "./pages/BESSFormPage";
 import MaintenanceOrdersPage from "./pages/MaintenanceOrdersPage";
+import MaintenanceReportPage from "./pages/MaintenanceReportPage";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="/administradores" element={<PlaceholderPage />} />
             <Route path="/bess" element={<BESSFormPage />} />
             <Route path="/manutencoes" element={<MaintenanceOrdersPage />} />
+            <Route path="/relatorio-manutencao/:orderId" element={<MaintenanceReportPage />} />
             <Route path="/perfil" element={<PlaceholderPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

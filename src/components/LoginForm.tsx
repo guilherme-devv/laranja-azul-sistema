@@ -29,9 +29,24 @@ export default function LoginForm() {
     // Simula uma autenticação
     setTimeout(() => {
       setIsLoading(false);
-      // Normalmente chamaria uma API aqui
-      localStorage.setItem("user", JSON.stringify({ email }));
-      window.location.href = "/dashboard";
+      
+      // Determine user role based on email for demo purposes
+      let role = "administrator";
+      if (email.includes("tecnico")) {
+        role = "technician";
+      } else if (email.includes("gerente")) {
+        role = "technical_manager";
+      }
+      
+      const user = { email, role };
+      localStorage.setItem("user", JSON.stringify(user));
+      
+      // Redirect based on role
+      if (role === "technical_manager" || role === "technician") {
+        window.location.href = "/manutencoes";
+      } else {
+        window.location.href = "/dashboard";
+      }
     }, 1000);
   };
 

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { 
   Table, 
@@ -43,6 +42,7 @@ import {
 } from "@/components/ui/pagination";
 import { Plus, Search, Filter, Edit, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 // Mock data for demonstration purposes
 const mockBESSSystems = [
@@ -102,6 +102,11 @@ export default function MaintenanceOrdersTable() {
   
   // Items per page
   const itemsPerPage = 5;
+  
+  // Check if current user is a technician
+  const userData = localStorage.getItem("user");
+  const currentUser = userData ? JSON.parse(userData) : null;
+  const isTechnician = currentUser?.role === "technician";
   
   // Filter and search orders
   const filteredOrders = maintenanceOrders.filter(order => {
@@ -345,93 +350,103 @@ export default function MaintenanceOrdersTable() {
                   <TableCell>{order.createdAt.toLocaleDateString('pt-BR')}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button variant="ghost" size="icon" 
-                            onClick={() => setEditingOrder({...order})}
-                          >
-                            <Edit className="h-4 w-4" />
+                      {isTechnician ? (
+                        <Link to={`/relatorio-manutencao/${order.id}`}>
+                          <Button size="sm" className="bg-brand-orange hover:bg-brand-orange/90">
+                            Preencher Relatório
                           </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                          <DialogHeader>
-                            <DialogTitle>Editar Ordem de Manutenção</DialogTitle>
-                            <DialogDescription>
-                              Atualize os detalhes da ordem {editingOrder?.id}.
-                            </DialogDescription>
-                          </DialogHeader>
-                          {editingOrder && (
-                            <div className="grid gap-4 py-4">
-                              <div className="grid gap-2">
-                                <label htmlFor="edit-bess">Sistema BESS</label>
-                                <Select 
-                                  value={editingOrder.bessSystemId}
-                                  onValueChange={(value) => setEditingOrder({
-                                    ...editingOrder,
-                                    bessSystemId: value
-                                  })}
-                                >
-                                  <SelectTrigger id="edit-bess">
-                                    <SelectValue placeholder="Selecionar Sistema BESS" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {mockBESSSystems.map(system => (
-                                      <SelectItem key={system.id} value={system.id}>
-                                        {system.manufacturer} {system.model}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div className="grid gap-2">
-                                <label htmlFor="edit-tech">Técnico Responsável</label>
-                                <Select 
-                                  value={editingOrder.technicianId}
-                                  onValueChange={(value) => setEditingOrder({
-                                    ...editingOrder,
-                                    technicianId: value
-                                  })}
-                                >
-                                  <SelectTrigger id="edit-tech">
-                                    <SelectValue placeholder="Selecionar Técnico" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {mockTechnicians.map(tech => (
-                                      <SelectItem key={tech.id} value={tech.id}>
-                                        {tech.name}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </div>
-                          )}
-                          <DialogFooter>
-                            <DialogClose asChild>
-                              <Button variant="outline">Cancelar</Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                              <Button onClick={handleUpdateOrder}>Salvar Alterações</Button>
-                            </DialogClose>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                      
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem
-                            className="text-red-600"
-                            onClick={() => handleDeleteOrder(order.id)}
-                          >
-                            Confirmar Remoção
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                        </Link>
+                      ) : (
+                        <>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="ghost" size="icon" 
+                                onClick={() => setEditingOrder({...order})}
+                              >
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                              <DialogHeader>
+                                <DialogTitle>Editar Ordem de Manutenção</DialogTitle>
+                                <DialogDescription>
+                                  Atualize os detalhes da ordem {editingOrder?.id}.
+                                </DialogDescription>
+                              </DialogHeader>
+                              {editingOrder && (
+                                <div className="grid gap-4 py-4">
+                                  <div className="grid gap-2">
+                                    <label htmlFor="edit-bess">Sistema BESS</label>
+                                    <Select 
+                                      value={editingOrder.bessSystemId}
+                                      onValueChange={(value) => setEditingOrder({
+                                        ...editingOrder,
+                                        bessSystemId: value
+                                      })}
+                                    >
+                                      <SelectTrigger id="edit-bess">
+                                        <SelectValue placeholder="Selecionar Sistema BESS" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {mockBESSSystems.map(system => (
+                                          <SelectItem key={system.id} value={system.id}>
+                                            {system.manufacturer} {system.model}
+                                          </SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+                                  <div className="grid gap-2">
+                                    <label htmlFor="edit-tech">Técnico Responsável</label>
+                                    <Select 
+                                      value={editingOrder.technicianId}
+                                      onValueChange={(value) => setEditingOrder({
+                                        ...editingOrder,
+                                        technicianId: value
+                                      })}
+                                    >
+                                      <SelectTrigger id="edit-tech">
+                                        <SelectValue placeholder="Selecionar Técnico" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {mockTechnicians.map(tech => (
+                                          <SelectItem key={tech.id} value={tech.id}>
+                                            {tech.name}
+                                          </SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+                                </div>
+                              )}
+                              <DialogFooter>
+                                <DialogClose asChild>
+                                  <Button variant="outline">Cancelar</Button>
+                                </DialogClose>
+                                <DialogClose asChild>
+                                  <Button onClick={handleUpdateOrder}>Salvar Alterações</Button>
+                                </DialogClose>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                          
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem
+                                className="text-red-600"
+                                onClick={() => handleDeleteOrder(order.id)}
+                              >
+                                Confirmar Remoção
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
